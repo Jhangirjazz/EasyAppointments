@@ -364,7 +364,7 @@
         
         // Get the correct category from ALL possible sources
         const correctCategory = 
-            window.App?.Vars?.selectedCategory ||
+            window.App?.Vars?.selectedCategory ||xl
             window.selectedCategory ||
             localStorage.getItem('ea_selected_category') ||
             'Makeup Looks'; // Default fallback

@@ -8,17 +8,17 @@
 
 <div id="wizard-frame-1" class="wizard-frame" style="visibility: hidden;">
     <div class="frame-container">
-        <h2 class="frame-title mt-md-5"><?= lang('service_and_provider') ?></h2>
+        <h2 class="frame-title mt-md-5"><?= lang('Pick Your Glow Look & Glow Artist') ?></h2>
 
         <div class="row frame-content">
             <div class="col col-md-8 offset-md-2">
                 <!-- CATEGORY SELECTION -->
                 <div class="mb-3">
                     <label for="select-category">
-                        <strong>Category</strong>
+                        <strong>Glow Category</strong>  
                     </label>
                     <select id="select-category" class="form-select">
-                        <option value="">Select Category</option>
+                        <option value="">Select Glow Category</option>
                         <?php
                         // Get unique categories
                         $categories = [];
@@ -40,10 +40,10 @@
                 <!-- SERVICE SELECTION (Hidden until category is selected) -->
                 <div class="mb-3" id="service-selection" style="display: none;">
                     <label for="select-service">
-                        <strong>Service</strong>
+                        <strong>Glow Look</strong>
                     </label>
                     <select id="select-service" class="form-select">
-                        <option value="">Select Service</option>
+                        <option value="">Select Glow Look</option>
                         <!-- Services will be populated by JavaScript -->
                     </select>
                 </div>
@@ -52,7 +52,7 @@
 
                 <div class="mb-3" hidden>
                     <label for="select-provider">
-                        <strong><?= lang('provider') ?></strong>
+                        <strong><?= lang('Glow Artist') ?></strong>
                     </label>
 
                     <select id="select-provider" class="form-select">
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Category stored on select:', categoryName);
         }
         
-        serviceSelect.innerHTML = '<option value="">Select Service</option>';
+        serviceSelect.innerHTML = '<option value="">Select Glow Look</option>';
         
         if (categoryId) {
             serviceSelection.style.display = 'block';
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (!App.Vars) {
                 App.Vars = {};
             }
-            
+
             App.Vars.selectedCategory = categoryName;
             App.Vars.selectedCategoryId = categoryId;
             window.selectedCategory = categoryName;
