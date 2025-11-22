@@ -64,22 +64,52 @@ label[for="select-timezone"] {
 </div>
 
 <script>
+    function convertTimes() {
+    document.querySelectorAll('.available-hour').forEach(slot => {
+        const time = slot.textContent.trim();
+        const match = time.match(/(\d{1,2}):(\d{2})/);
+        if (match) {
+            let h = parseInt(match[1]);
+            const m = match[2];
+            const period = h >= 12 ? 'pm' : 'am';
+            h = h % 12 || 12;
+            slot.textContent = h + ':' + m + ' ' + period;
+        }
+    });
+}
+convertTimes();
 // Force UAE timezone for booking
-document.addEventListener('DOMContentLoaded', function() {
-    // Set global timezone to UAE
-    if (typeof App !== 'undefined') {
-        App.Vars.timezone = 'Asia/Dubai';
-        App.Vars.customerTimezone = 'Asia/Dubai';
-    }
+// document.addEventListener('DOMContentLoaded', function() {
+//     // Set global timezone to UAE
+//     if (typeof App !== 'undefined') {
+//         App.Vars.timezone = 'Asia/Dubai';
+//         App.Vars.customerTimezone = 'Asia/Dubai';
+//     }
     
-    // Override the timezone detection
-    window.getCustomerTimezone = function() {
-        return 'Asia/Dubai';
-    };
+//     // Override the timezone detection
+//     window.getCustomerTimezone = function() {
+//         return 'Asia/Dubai';
+//     };
     
-    // If using moment.js
-    if (typeof moment !== 'undefined') {
-        moment.tz.setDefault('Asia/Dubai');
-    }
-});
+//     // If using moment.js
+//     if (typeof moment !== 'undefined') {
+//         moment.tz.setDefault('Asia/Dubai');
+//     }
+
+
+//     function convertTimes() {
+//     document.querySelectorAll('.available-hour').forEach(slot => {
+//         const time = slot.textContent.trim();
+//         const match = time.match(/(\d{1,2}):(\d{2})/);
+//         if (match) {
+//             let h = parseInt(match[1]);
+//             const m = match[2];
+//             const period = h >= 12 ? 'pm' : 'am';
+//             h = h % 12 || 12;
+//             slot.textContent = h + ':' + m + ' ' + period;
+//         }
+//     });
+// }
+// convertTimes();
+// });
 </script>

@@ -272,6 +272,26 @@ class Service_categories_model extends EA_Model
 
         $service_categories = $this->db->get('service_categories', $limit, $offset)->result_array();
 
+        // Custom sorting WITHOUT touching database
+        usort($service_categories, function ($a, $b) {
+        $order = [
+            'Makeup Looks',
+            'Hair Styling',
+            'Drapping & Setting',
+            'Add on & Extras'
+        ];
+
+        $posA = array_search($a['name'], $order);
+        $posB = array_search($b['name'], $order);
+
+        // If name not found in list, push it to bottom
+        $posA = $posA === false ? 999 : $posA;
+        $posB = $posB === false ? 999 : $posB;
+
+        return $posA <=> $posB;
+    });
+
+
         foreach ($service_categories as &$service_category) {
             $this->cast($service_category);
         }

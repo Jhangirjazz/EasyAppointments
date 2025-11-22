@@ -20,19 +20,59 @@
                     <select id="select-category" class="form-select">
                         <option value="">Select Glow Category</option>
                         <?php
-                        // Get unique categories
-                        $categories = [];
-                        foreach ($available_services as $service) {
-                            if (!empty($service['service_category_id']) && !empty($service['service_category_name'])) {
-                                $categories[$service['service_category_id']] = $service['service_category_name'];
-                            }
-                        }
-                        // Add uncategorized option
-                        $categories['uncategorized'] = 'Other Services';
+                        // // Get unique categories
+                        // $categories = [];
+                        // foreach ($available_services as $service) {
+                        //     if (!empty($service['service_category_id']) && !empty($service['service_category_name'])) {
+                        //         $categories[$service['service_category_id']] = $service['service_category_name'];
+                        //     }
+                        // }
+                        // // Add uncategorized option
+                        // $categories['uncategorized'] = 'Other Services';
                         
-                        foreach ($categories as $category_id => $category_name) {
-                            echo '<option value="' . e($category_id) . '">' . e($category_name) . '</option>';
-                        }
+                        // foreach ($categories as $category_id => $category_name) {
+                        //     echo '<option value="' . e($category_id) . '">' . e($category_name) . '</option>';
+                        // }
+                        
+                            $categories = [];
+                            foreach ($available_services as $service) {
+                                if (!empty($service['service_category_id']) && !empty($service['service_category_name'])) {
+                                    $categories[$service['service_category_id']] = $service['service_category_name'];
+                                }
+                            }
+                            // Add uncategorized
+                            $categories['uncategorized'] = 'Other Services';
+
+                            // Priority list for known categories
+                            $priorityOrder = [
+                                'Makeup Looks' => 1,
+                                'Hair Styling' => 2,
+                                'Drapping & Setting' => 3,
+                                'Add on & Extras' => 4,
+                                'Other Services' => 99,
+                            ];
+
+                            // Assign priority to each category
+                            $sorted = [];
+                            foreach ($categories as $id => $name) {
+                                $priority = $priorityOrder[$name] ?? 50; // new categories default=50
+                                $sorted[] = [
+                                    'id' => $id,
+                                    'name' => $name,
+                                    'priority' => $priority
+                                ];
+                            }
+
+                            // Sort by priority
+                            usort($sorted, function($a, $b) {
+                                return $a['priority'] <=> $b['priority'];
+                            });
+
+                            // Output
+                            foreach ($sorted as $cat) {
+                                echo '<option value="' . e($cat['id']) . '">' . e($cat['name']) . '</option>';
+                            }
+
                         ?>
                     </select>
                 </div>
